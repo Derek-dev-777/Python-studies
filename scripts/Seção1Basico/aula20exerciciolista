@@ -1,0 +1,28 @@
+
+lista_compras = []
+
+
+while True:
+    for i in list(enumerate(lista_compras)):
+        print(i)
+
+    print("Está é sua lista de compras, veja os comandos abaixo:")
+    
+    comando = input("Caso queira adicionar um item a sua lista digite 'item': ").lower().startswith("i")
+
+    if comando == True:
+         item_adicionado = input("Digite o nome do item para adicionar em sua lista: ").lower()
+         lista_compras.append(item_adicionado)
+         print(f"O item {item_adicionado} está em sua lista agora, veja-a novamente: ")
+         continue
+
+    
+    comando2 = input("Caso queira deletar algum item da sua lista, digite 'Delete': ").lower().startswith("d")
+
+    if comando2 == True:
+        item_deletado = input("Digite o numero do respectivo item para ser deletado: ")
+
+        if item_deletado.isdigit():
+            del lista_compras[int(item_deletado)]
+            print(f"{item_deletado} foi removido de sua lista.")
+            continue

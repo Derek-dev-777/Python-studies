@@ -1,0 +1,55 @@
+# openpyxl para arquivos Excel xlsx, xlsm, xltx e xltm (instalação)
+# Com essa biblioteca será possível ler e escrever dados em células
+# específicas, formatar células, inserir gráficos,
+# criar fórmulas, adicionar imagens e outros elementos gráficos às suas
+# planilhas. Ela é útil para automatizar tarefas envolvendo planilhas do
+# Excel, como a criação de relatórios e análise de dados e/ou facilitando a
+# manipulação de grandes quantidades de informações.
+# Instalação necessária: pip install openpyxl
+# Documentação: https://openpyxl.readthedocs.io/en/stable/
+
+from pathlib import Path
+from openpyxl import Workbook
+from openpyxl.worksheet.worksheet import Worksheet
+
+
+ROOT_FOLDER  = Path(__file__).parent
+WORKBOOK_PATH = ROOT_FOLDER / "workbook.xlsx"
+
+workbook = Workbook() # cria o workbook ( arquivo )
+# worksheet: Worksheet = workbook.active # cria uma planilha DENTRO do workbook
+
+# Nome para a planilha
+sheet_name = 'Minha planilha'
+# Criamos a planilha
+workbook.create_sheet(sheet_name, 0)
+# Selecionou a planilha
+worksheet: Worksheet = workbook[sheet_name]
+
+# Remover uma planilha
+workbook.remove(workbook['Sheet'])
+
+#Criando o cabeçalho
+
+worksheet.cell(1,1,"Nome")
+worksheet.cell(1,2,"Idade")
+worksheet.cell(1,3,"Nota")
+
+students = [
+
+    ["Joao", 17, 8],
+    ["Maria", 15, 9.7],
+    ["Derek", 20, 10],
+    ["Vitoria", 19, 11]
+]
+
+#for i,student_row in enumerate(students, start=2):
+#    for j, student_collum in enumerate(student_row, start=1):
+#        worksheet.cell(i,j, student_collum)
+
+for student in students:
+    worksheet.append(student)
+
+workbook.save(WORKBOOK_PATH)
+
+
