@@ -24,24 +24,24 @@ def main(page: ft.Page):
                 IMC.value = f"Seu IMC é {imc_resultado:.2f}"
                 page.update()
 
-            except ValueError:  # Se não for digitado números, ele mostra o banner
+            except ValueError:  
                 banner_value_error.open = True
                 page.update()
 
         if genero.value == "Feminino":
             resultado = imc_feminino(imc_resultado)
             detalhes.value = f"{resultado}"
-            icone_padrao.icon = ft.icons.WOMAN_2  # Alterando o ícone para mulher
-            page.update()  # Forçando a atualização da tela
+            icone_padrao.icon = ft.icons.WOMAN_2 
+            page.update()  
 
         elif genero.value == "Masculino":
             resultado = imc_masculino(imc_resultado)
             detalhes.value = f"{resultado}"
             icone_padrao = ft.Icon(ft.icons.MAN_2, size=100)
-            icone_padrao.update()  # Alterando o ícone para homem
-            page.update()  # Forçando a atualização da tela
+            icone_padrao.update()  
+            page.update()  
 
-        # Limpando dados
+        
         peso.value = ""
         altura.value = ""
         genero.value = ""
@@ -186,5 +186,5 @@ def main(page: ft.Page):
     page.update()
 
 
-# Corrigindo a indentação da chamada do app
+
 ft.app(target=main)
