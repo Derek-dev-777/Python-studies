@@ -1,0 +1,3 @@
+view mobile
+
+ft.app(view=ft.AppView.WEB_BROWSER)
