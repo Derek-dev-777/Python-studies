@@ -1,10 +1,10 @@
 import flet as ft
 
 def main(page: ft.Page):
-    page.bgcolor = ft.colors.WHITE24
+    page.bgcolor = ft.colors.BLACK
     page.title = "Clima Tempo"
     page.window.width = 350
-    page.window.height = 730
+    page.window.height = 750
 
     
     # container principal, onde os outros containers serão adicionados
@@ -65,7 +65,7 @@ def main(page: ft.Page):
     # Container central:
 
     cnt_central = ft.Container(
-        bgcolor= ft.colors.GREY_100,
+        #bgcolor= ft.colors.GREY_100,
         height = 200,
         width= cnt_principal.width * 0.95,
         content= ft.Column(
@@ -128,7 +128,7 @@ def main(page: ft.Page):
     # Container inferior:
     
     cnt_inferior = ft.Container(
-        bgcolor= ft.colors.GREY_100,
+        #bgcolor= ft.colors.GREY_100,
         height = 150,
         content= ft.Column(
 
