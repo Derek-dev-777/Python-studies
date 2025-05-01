@@ -1,1 +1,4 @@
 scripts/Seção4Modulos/.env
+.venv/
+venv/
+__pycache__/
