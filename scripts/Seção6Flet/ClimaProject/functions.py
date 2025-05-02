@@ -1,24 +1,23 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-# API Geocode (usada para buscar as cordenadas das cidades que serão digitadas):
-# https://openweathermap.org/api/geocoding-api
+# API openweather (usada para buscar as cordenadas das cidades que serão digitadas):
+# https://openweathermap.org/city/3449324
 
 # API ipInfo (usada para pegar as cordenadas atuais do usuario):
 # https://ipinfo.io/
 
-#API
-# https://openweathermap.org/current#name
 
+load_dotenv()
 
-
-
-api_key = "6d71fdfd13ff10ec7aa99a11cc74b58c"
+api_key = os.getenv("API_KEY")
 
 # Função para pegar as cordenadas da cidade informada.
 """
 Exemplo de como usar a função de buscar as cordenadas da localização digitada pelo usuario
 
-lati,long = cords_by_name(apiKey="6d71fdfd13ff10ec7aa99a11cc74b58c",city="Balneario Camboriu", country="BR")
+lati,long = cords_by_name(apiKey="",city="Balneario Camboriu", country="BR")
 
 print(lati,long)
 
@@ -56,21 +55,55 @@ def get_user_cords():
     user_lat = user_cords[0]
     user_long = user_cords[1]
 
-    return user_lat,user_long
+    city = ip_request.get("city")
+    region = ip_request.get("region")
+    country = ip_request.get("country")
+
+    return [user_lat,user_long,city,region,country]
+
+# Função para buscar as informações do clima atual da cidade informada:
+"""
+Exemplo de como usar a função:
+
+previsao_atual = get_climate_by_name(API,"São Paulo","BR")
+
+print(previsao_atual)
+
+"""
+
+def get_climate_by_name(apiKey,city,country):
+    
+    cordenadas_dadas_user = cords_by_name(apiKey,city,country)
+    previsao = previsao_tempo(cordenadas_dadas_user[0],cordenadas_dadas_user[1],api_key)
+
+    return previsao
 
 # Função para buscar as informações do tempo na cordenada desejada pelo usuario
 
 def previsao_tempo(user_lat, user_long, api_key):
 
-    url = f"https://api.openweathermap.org/data/2.5/weather?lat={user_lat}&lon={user_long}&appid={api_key}"
+    url = f"https://api.openweathermap.org/data/2.5/weather?lat={user_lat}&lon={user_long}&units=metric&appid={api_key}"
 
     requisicao = requests.get(url).json()
 
     return requisicao
 
-cordenadas_dadas_user = cords_by_name(api_key,"São Paulo","Brazil")
-previsao = previsao_tempo(cordenadas_dadas_user[0],cordenadas_dadas_user[1],api_key)
+# Função para pegar as previsão dos proximos 5 dias
+"""
 
-print(cordenadas_dadas_user[0])
-print(cordenadas_dadas_user[1])
-print(previsao)
+
+request = days_predict(apiKey="",city="Balneario Camboriu", country="BR")
+
+print(lati,long)
+
+"""
+def days_predict(apikey, city, country):
+
+    lat,lon = cords_by_name(apikey,city,country)
+
+    url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&&appid={apikey}"
+
+    requisicao = requests.get(url).json()
+
+    return requisicao
+
