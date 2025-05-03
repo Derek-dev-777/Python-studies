@@ -1,6 +1,6 @@
 scripts/Seção4Modulos/.env
 .venv/
-venv/
+
 __pycache__/
 scripts/Seção6Flet/ClimaProject/test.py
 scripts/Seção6Flet/ClimaProject/.env
